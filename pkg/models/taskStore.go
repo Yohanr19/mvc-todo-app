@@ -35,6 +35,12 @@ func (ts *TaskStore) InsertTask(text string) {
 func (ts *TaskStore) SetIsActive(id string, isActive bool) {
 	ts.DB.Model(&Task{}).Where(`id = ?`, id).Update(`is_active`, isActive)
 }
+func (ts *TaskStore) Delete(id string) {
+	ts.DB.Delete(&Task{}, id)
+}
+func (ts *TaskStore) DeleteCompleted() {
+	ts.DB.Where("is_active = ?", false).Delete(&Task{})
+}
 func (ts *TaskStore) GetTasks() []Task {
 	var tasks []Task
 	ts.DB.Order("id").Find(&tasks)
