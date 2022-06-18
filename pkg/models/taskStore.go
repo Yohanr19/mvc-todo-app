@@ -21,10 +21,19 @@ func (ts *TaskStore)InitDB()error{
 	ts.DB = db
 	return nil
 }
-
+//InsertTask defaults the isActive field to true
 func (ts *TaskStore)InsertTask(text string){
 	var task Task 
 	task.Text = text
 	task.IsActive = true
 	ts.DB.Create(&task)
+}
+
+func (ts *TaskStore)SetIsActive(id string ,isActive bool){
+	 ts.DB.Model(&Task{}).Where(`id = ?`,id).Update(`is_active`,isActive)
+} 
+func (ts *TaskStore)GetTasks()[]Task{
+	var tasks []Task
+	ts.DB.Order("id").Find(&tasks)
+	return tasks
 }
