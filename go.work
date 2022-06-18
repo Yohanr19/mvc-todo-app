@@ -1,3 +1,4 @@
 go 1.18
 
 use ./pkg/models
+use ./cmd/server
