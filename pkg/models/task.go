@@ -1,11 +1,11 @@
 package psqlStore
 
-import(
+import (
 	"gorm.io/gorm"
 )
 
 type Task struct {
 	gorm.Model
-	Text string
+	Text     string
 	IsActive bool
 }
